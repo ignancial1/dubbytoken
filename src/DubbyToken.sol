@@ -94,7 +94,7 @@ contract DubbyToken is ERC20, ReentrancyGuard {
         uint256 tax = (msg.value * TRANSFER_TAX_PERCENT) / 100;
         uint256 amountAfterTax = msg.value - tax;
 
-        (bool sent, ) = taxWallet.call{value: tax}("");
+        (bool sent,) = taxWallet.call{value: tax}("");
         require(sent, "Tax transfer failed");
         emit TaxSent(taxWallet, tax);
 
@@ -107,7 +107,7 @@ contract DubbyToken is ERC20, ReentrancyGuard {
         require(amount > 0, "Not enough ETH");
 
         ethBalance[msg.sender] = 0;
-        (bool sent, ) = msg.sender.call{value: amount}("");
+        (bool sent,) = msg.sender.call{value: amount}("");
         require(sent, "Withdrawal failed");
 
         emit Withdrawal(msg.sender, amount);
@@ -158,7 +158,7 @@ contract DubbyToken is ERC20, ReentrancyGuard {
     function rescueETH() external onlyOwner {
         uint256 balance = address(this).balance;
         require(balance > 0, "No ETH to recover");
-        (bool sent, ) = payable(owner).call{value: balance}("");
+        (bool sent,) = payable(owner).call{value: balance}("");
         require(sent, "ETH recovery failed");
         emit RecoveredETH(balance);
     }
@@ -171,6 +171,4 @@ contract DubbyToken is ERC20, ReentrancyGuard {
         IERC20(tokenAddress).safeTransfer(owner, balance);
         emit RecoveredToken(tokenAddress, balance);
     }
-
-    
 }

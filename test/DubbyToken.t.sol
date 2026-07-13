@@ -5,8 +5,7 @@ import {Test} from "forge-std/Test.sol";
 import {DubbyToken} from "../src/DubbyToken.sol";
 
 contract DubbyTokenTest is Test {
-
-    receive() external payable{}
+    receive() external payable {}
     DubbyToken public token;
 
     address public owner;
@@ -27,7 +26,7 @@ contract DubbyTokenTest is Test {
     // Deployment
     // ---------------------------------------------------------
 
-    function test_InitialSupplyMintedToDeployer() public view{
+    function test_InitialSupplyMintedToDeployer() public view {
         assertEq(token.balanceOf(owner), 1_000_000 * 10 ** token.decimals());
     }
 
@@ -35,7 +34,7 @@ contract DubbyTokenTest is Test {
         assertEq(token.owner(), owner);
     }
 
-    function test_TaxWalletIsSetCorrectly() public view{
+    function test_TaxWalletIsSetCorrectly() public view {
         assertEq(token.taxWallet(), taxWallet);
     }
 
